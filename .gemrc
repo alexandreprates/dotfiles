@@ -1,0 +1,12 @@
+# http://docs.rubygems.org/read/chapter/11
+--- 
+gem: --no-ri --no-rdoc
+benchmark: false
+verbose: true
+update_sources: true
+sources: 
+- http://geminabox.ir7.com.br/
+- https://rubygems.org/
+backtrace: true
+bulk_threshold: 1000
+
