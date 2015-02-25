@@ -1,0 +1,11 @@
+#!/bin/bash
+
+showCalendar() {
+  notify-send "$(cal)"
+}
+
+case $BLOCK_BUTTON in
+  1) showCalendar;;
+esac
+
+date '+%A, %d %B'

@@ -1,0 +1,13 @@
+#!/bin/env ruby
+#encoding: utf-8
+
+require 'open-uri'
+require 'json'
+
+data = open('http://ip-api.com/json')
+location = JSON.parse data.read
+
+data = open("http://api.openweathermap.org/data/2.5/weather?lat=#{location['lat']}&lon=#{location['lon']}&units=metric")
+weather = JSON.parse data.read
+
+puts "#{location['city']}, #{weather['weather'].first['main']} #{weather['main']['temp'].to_i}° - Humidity #{weather['main']['humidity']}%"

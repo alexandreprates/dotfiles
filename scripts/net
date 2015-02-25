@@ -1,0 +1,11 @@
+#!/bin/bash
+
+show_ip() {
+  ip addr | grep 'state UP' -A2 | tail -n1 | awk '{print $2}' | cut -f1  -d'/'
+}
+
+case $BLOCK_BUTTON in
+  3) echo $(show_ip) | xclip ;;  # right click
+esac
+
+echo $(show_ip)
