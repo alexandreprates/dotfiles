@@ -1,13 +1,15 @@
 #!/bin/env ruby
 #encoding: utf-8
 
+APPID = "22f7c830d6fad6c0a48b10aedc5a8500"
+
 require 'open-uri'
 require 'json'
 
 data = open('http://ip-api.com/json')
 location = JSON.parse data.read
 
-data = open("http://api.openweathermap.org/data/2.5/weather?lat=#{location['lat']}&lon=#{location['lon']}&units=metric")
+data = open("http://api.openweathermap.org/data/2.5/weather?lat=#{location['lat']}&lon=#{location['lon']}&units=metric&APPID=#{APPID}")
 weather = JSON.parse data.read
 
 puts "#{location['city']}, #{weather['weather'].first['main']} #{weather['main']['temp'].to_i}° - Humidity #{weather['main']['humidity']}%"

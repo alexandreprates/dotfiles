@@ -3,6 +3,6 @@
 pidof i3lock
 [ $? -eq 1 ] || exit 1; # exit for none-zero return code
 
-scrot -q 1 /tmp/lock.png
+scrot -z -q 1 /tmp/lock.png
 convert /tmp/lock.png -filter Gaussian -resize 50% -define filter:sigma=10 -resize 200% ~/.lock.png
 i3lock -i ~/.lock.png --nofork
