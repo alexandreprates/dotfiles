@@ -1,11 +1,11 @@
 #!/bin/bash
 
-ln -sf $HOME/.dunstrc $HOME/.dotfiles/dunstrc
-ln -sf $HOME/.i3 $HOME/.dotfiles/i3
-ln -sf $HOME/.i3blocks.conf $HOME/.dotfiles/i3/taskbar.conf
-ln -sf $HOME/.lockscreen $HOME/.dotfiles/scripts/lockscreen
-ln -sf $HOME/.xinitrc $HOME/.dotfiles/xinitrc
-ln -sf $HOME/.zshrc $HOME/.dotfiles/zshrc
+ln -sf $HOME/.dotfiles/dunstrc $HOME/.dunstrc 
+ln -sf $HOME/.dotfiles/i3 $HOME/.i3
+ln -sf $HOME/.dotfiles/i3/taskbar.conf $HOME/.i3blocks.conf
+ln -sf $HOME/.dotfiles/scripts/lockscreen $HOME/.lockscreen
+ln -sf $HOME/.dotfiles/xinitrc $HOME/.xinitrc
+ln -sf $HOME/.dotfiles/zshrc $HOME/.zshrc
 
 for theme in `ls $HOME/.dotfiles/oh_my_zsh_theme`
 do
