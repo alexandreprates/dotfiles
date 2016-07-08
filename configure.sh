@@ -9,7 +9,7 @@ ln -sf $HOME/.dotfiles/zshrc $HOME/.zshrc
 
 for theme in `ls $HOME/.dotfiles/oh_my_zsh_theme`
 do
-  ln -sf $HOME/oh_my_zsh_theme/$theme $HOME/.oh-my-zsh/themes/$theme
+  cp -f $HOME/oh_my_zsh_theme/$theme $HOME/.oh-my-zsh/themes/$theme
 done
 
 echo Config done!
