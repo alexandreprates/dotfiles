@@ -12,4 +12,4 @@ do
   ln -sf $HOME/oh_my_zsh_theme/$theme $HOME/.oh_my_zsh/themes/$theme
 done
 
-echo Done!
+echo Config done!
