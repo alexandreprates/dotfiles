@@ -1,11 +1,16 @@
 #!/bin/bash
 
-showCalendar() {
-  notify-send "$(cal)"
+showCurrentMonth() {
+  notify-send "$(cal -S)"
+}
+
+showNextMonth() {
+  notify-send "$(cal `date --date="next month" +"%m %Y"`)"
 }
 
 case $BLOCK_BUTTON in
-  1) showCalendar;;
+  1) showCurrentMonth;;
+  3) showNextMonth;;
 esac
 
 date '+%A, %d %B'
