@@ -5,21 +5,14 @@
 "activeWinLine=$(xprop -root | grep "_NET_ACTIVE_WINDOW(WINDOW)") && activeWinId=${activeWinLine:40} && filename=~/media/screenshot/$(date +%F_%H%M%S_%N).png && import -window "$activeWinId" $filename && notify-send "Screen captured to $filename" --icon=dialog-information"
   Print
 
-"xbindkeys_show"
-  control+shift + s
-
 #KeyboardPlay
 "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause"
   XF86AudioPlay
 
-#KeyboardStop
-#"dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Stop"
-#  XF8dd6AudioStop
-
 #KeyboardPrev
-#"dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Prev"
-#  XF86AudioPrev
+"dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous"
+  Mod2+Mod4 + comma
 
 #KeyboardNext
 "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next"
-  XF86Calculator
+  Mod2+Mod4 + period
