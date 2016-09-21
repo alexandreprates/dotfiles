@@ -2,8 +2,8 @@
 # Alt - Mod1
 set $mod Mod4
 
-#font pango:DejaVu Sans Mono 10
-font pango:Inconsolata 10
+font pango:DejaVu Sans Mono 10
+#font pango:Inconsolata 12
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -53,6 +53,9 @@ bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
+
+# Pop-up floating
+for_window [window_role="pop-up"] floating enable
 
 # change focus between tiling / floating windows
 bindsym $mod+Alt+space focus mode_toggle
@@ -123,6 +126,7 @@ client.urgent           #ab4642   #ab4642     #ffffff
 bar {
   status_command i3blocks
   output         DP1
+  tray_output    primary
   position       top
   colors {
     background #181818
@@ -137,9 +141,9 @@ bar {
 }
 
 bar {
-#  status_command i3blocks
   output         DP2
   output         VGA1
+  tray_output    DP1
   position       top
   colors {
     background #181818
@@ -152,10 +156,3 @@ bar {
     urgent_workspace   #ab4642 #ab4642 #ffffff
   }
 }
-
-exec xautolock -time 5 -locker ~/.lockscreen &
-exec dunst -config ~/.dunstrc &
-exec feh --randomize --bg-fill ~/.wallpapers &
-
-#exec blueman-applet
-#exec start_proximity.sh

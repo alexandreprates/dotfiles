@@ -1,8 +1,13 @@
 #!/bin/sh
 
-#xrandr --output DP1 --auto --primary --output DP2 --auto --rotate left --left-of DP1 --output VGA1 --auto --right-of DP1
-setxkbmap -model abnt2 -layout br -variant abnt2
-xbindkeys &
-
 export TERMINAL=/usr/bin/terminology
+
+setxkbmap -model abnt2 -layout br -variant abnt2
+xbindkeys
+
+xautolock -time 5 -locker ~/.lockscreen &
+dunst -config ~/.dunstrc &
+feh --randomize --bg-fill ~/.wallpapers &
+clipit &
+
 exec $1

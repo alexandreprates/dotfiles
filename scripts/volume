@@ -44,4 +44,4 @@ case $BLOCK_BUTTON in
   5) amixer -q -D $MIXER sset $SCONTROL $(capability) ${STEP}- ;; # scroll down, decrease
 esac
 
-echo "Vol: $(volume | format)"
+echo "$(volume | format)"

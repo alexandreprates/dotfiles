@@ -6,6 +6,5 @@ show_ip() {
 
 case $BLOCK_BUTTON in
   3) echo $(show_ip) | xclip ;;  # right click
+  *) echo $(show_ip)
 esac
-
-echo $(show_ip)
