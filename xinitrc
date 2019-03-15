@@ -11,4 +11,6 @@ feh --randomize --bg-fill ~/.wallpapers &
 
 xrandr --output HDMI-1 --primary --left-of eDP-1
 
+$HOME/.dotfiles/scripts/detect_monitor.sh &
+
 exec $1
