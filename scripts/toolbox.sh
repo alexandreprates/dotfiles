@@ -1,19 +1,15 @@
 export EDITOR=vim
-export PATH="$PATH:/home/aprates/.local/bin"
+export PATH="$PATH:$HOME/.local/bin"
 
 alias be="bundle exec"
 alias bi="bundle install"
 alias open="xdg-open"
-alias xgitg="gitg . > /dev/null 2>&1 &"
-alias xmeld="meld . > /dev/null 2>&1 &"
 
-alias dc="docker-compose"
-alias reloadtoobox="source ~/.dotfiles/scripts/toolbox.sh"
+alias reload-toolbox="source ~/.dotfiles/scripts/toolbox.sh"
 
-function checktoolbox {
-  echo "Toolbox lodaded!"
+function toolbox {
+  echo "Toolbox available!"
 }
-
 
 # Find for text into ruby/erb files (recursively)
 function codesearch {
@@ -30,29 +26,6 @@ function here {
 }
 
 # chown me all files in dir
-function giveme {
-  sudo chown $USER:$USER *.* -R
-  ls -l
-}
-
-#   Docker functions
-
-function drestart {
-  clear && docker stop $1 && docker start -ai $1
-}
-
-function dcrestart {
-  clear && docker-compose stop && docker-compose start && docker-compose logs -f --tail 0
-}
-
-function drspec {
-  clear && docker exec -it $1 bundle exec rspec $2
-}
-
-function dbash {
-  clear && docker exec -it $1 /bin/bash
-}
-
-function dlogs {
-  clear && docker logs -f --tail 0 $1
+function repossess {
+  sudo chown $USER:$USER -Rv *
 }

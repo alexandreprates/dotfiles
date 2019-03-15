@@ -1,4 +1,4 @@
-#!/bin/env ruby
+#!/usr/bin/env ruby
 #encoding: utf-8
 
 APPID = "22f7c830d6fad6c0a48b10aedc5a8500"
@@ -12,4 +12,5 @@ location = JSON.parse data.read
 data = open("http://api.openweathermap.org/data/2.5/weather?lat=#{location['lat']}&lon=#{location['lon']}&units=metric&APPID=#{APPID}")
 weather = JSON.parse data.read
 
+p location
 puts "#{location['city']}, #{weather['weather'].first['main']} #{weather['main']['temp'].to_i}° - Humidity #{weather['main']['humidity']}%"

@@ -1,19 +1,15 @@
-export ZSH=/home/aprates/.oh-my-zsh
+export ZSH=$HOME/.oh-my-zsh
 
 ZSH_THEME="lost"
 
-plugins=(git archlinux docker docker-compose ruby rbenv)
+ZSH_CUSTOM=$HOME/.dotfiles/oh_my_zsh
 
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin"
+plugins=(git docker docker-compose heroku)
+
 
 # User configuration
-source $HOME/.dotfiles/scripts/toolbox.sh
 source $ZSH/oh-my-zsh.sh
-
-# Load rbenv
-PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
-
+source $HOME/.dotfiles/scripts/toolbox.sh
 
 # Load go2dir
-[[ -s "/home/aprates/.go2dir/go2dir.sh" ]] && source "/home/aprates/.go2dir/go2dir.sh"
+[[ -s "$HOME/.go2dir/go2dir.sh" ]] && source "$HOME/.go2dir/go2dir.sh"
