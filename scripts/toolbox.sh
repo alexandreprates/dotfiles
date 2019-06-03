@@ -1,11 +1,7 @@
 export EDITOR=vim
 export PATH="$PATH:$HOME/.local/bin"
 
-alias be="bundle exec"
-alias bi="bundle install"
-alias open="xdg-open"
-
-alias reload-toolbox="source ~/.dotfiles/scripts/toolbox.sh"
+alias reload-toolbox="source ~/.dotfiles/scripts/toolbox.sh; echo Done!"
 
 function toolbox {
   echo "Toolbox available!"
@@ -26,6 +22,12 @@ function here {
 }
 
 # chown me all files in dir
-function repossess {
-  sudo chown $USER:$USER -Rv *
+function reown {
+  find . -path ./tmp -prune -o \! -user $USER -exec sudo chown $USER:$USER -v {} \;
+}
+
+
+function backup {
+  FILENAME=$(pwd | rev | cut -d "/" -f 1 | rev)
+  tar -cjvf ../backup-$FILENAME-`date +"%F"`.tar.bz2 --exclude .git --exclude tmp --exclude logs  --exclude log .
 }

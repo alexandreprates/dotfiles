@@ -1,12 +1,22 @@
 #!/bin/bash
 
-ln -sf $HOME/.dotfiles/dunstrc $HOME/.dunstrc
-ln -sf $HOME/.dotfiles/gemrc $HOME/.gemrc
-ln -sf $HOME/.dotfiles/i3 $HOME/.i3
-ln -sf $HOME/.dotfiles/i3/taskbar.conf $HOME/.i3blocks.conf
-ln -sf $HOME/.dotfiles/scripts/lockscreen $HOME/.lockscreen
-ln -sf $HOME/.dotfiles/xinitrc $HOME/.xinitrc
-ln -sf $HOME/.dotfiles/zshrc $HOME/.zshrc
-# ln -sf $HOME/.dotfiles/xbindkeysrc $HOME/.xbindkeysrc
+function dotfile_link() {
+  FILENAME=$1
+
+  if [ -n "$2" ]; then
+    DOTFILE="$HOME/.$2"
+  else
+    DOTFILE="$HOME/.$(basename $FILENAME)"
+  fi
+
+  [[ -s $DOTFILE ]] && mv $DOTFILE $DOTFILE.backup
+  ln -sf $FILENAME $DOTFILE
+}
+
+for filename in $(pwd)/configs_and_inits/*; do
+  dotfile_link $filename
+done
+
+dotfile_link $HOME/.dotfiles/i3/config i3
 
 echo Config done!

@@ -13,4 +13,6 @@ xrandr --output HDMI-1 --primary --left-of eDP-1
 
 $HOME/.dotfiles/scripts/detect_monitor.sh &
 
+sudo chmod a+rw /sys/class/backlight/intel_backlight/brightness &
+
 exec $1

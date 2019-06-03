@@ -133,7 +133,7 @@ client.urgent           #ab4642   #ab4642     #ffffff
 bar {
   status_command i3blocks -c $HOME/.dotfiles/i3/taskbar.conf
   #font pango: DejaVu Sans Mono 11
-  font pango:DejaVu Sans Mono, FontAwesome5Free, FontAwesome5Brands 11
+  font pango:DejaVu Sans Mono, FontAwesome5Free, FontAwesome5Brands 10
   tray_output    none
   position       top
   colors {
@@ -148,6 +148,9 @@ bar {
     urgent_workspace   #ab4642 #ab4642 #ffffff
   }
 }
+
+# Bazinga
+bindsym Mod1+Tab exec feh --auto-zoom --borderless --fullscreen Local\ Documents/Images/bazinga.png &
 
 # Screen brightness control
 bindsym XF86MonBrightnessUp exec --no-startup-id sudo brightnessctl s 5%+

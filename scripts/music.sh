@@ -10,12 +10,14 @@ esac
 TITLE=$(playerctl metadata | grep title | cut -d " " -f 17-)
 ALBUM=$(playerctl metadata | grep album | cut -d " " -f 17-)
 
-TEXT="$TITLE - $ALBUM"
+TEXT=$(echo "$TITLE - $ALBUM" | iconv -f utf-8 -t ascii//translit)
 TEXT_LENGTH=$(expr length "$TEXT")
 
 if [ $TEXT_LENGTH -gt $DISPLAY_SIZE ]; then
-  SCROLL=$(( $(date +%s) % $(( $DISPLAY_SIZE - $TEXT_LENGTH + 1 )) ))
+  SCROLL=$(( $(date +%s) % $(( $TEXT_LENGTH - $DISPLAY_SIZE + 1 )) ))
   TEXT=${TEXT:SCROLL:DISPLAY_SIZE}
+else
+  TEXT=$(printf "%-30s" "$TEXT")
 fi
 
 if playerctl metadata | grep "spotify" > /dev/null; then

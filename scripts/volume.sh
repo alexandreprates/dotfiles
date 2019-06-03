@@ -12,10 +12,9 @@ if [ $(amixer -D pulse sget Master | tail -n1 | cut -d ' ' -f 8) == "[off]" ]; t
 fi
 
 case $BLOCK_BUTTON in
-  1) playerctl play-pause > /dev/null 2>&1;; # Toggle music
-  2) amixer -D pulse sset Master toggle > /dev/null 2>&1;;  # right click, mute/unmute
-  4) amixer -D pulse sset Master 5%- > /dev/null 2>&1;; # scroll up, increase
-  5) amixer -D pulse sset Master 5%+ > /dev/null 2>&1;; # scroll down, decrease
+  1) amixer -D pulse sset Master 3%+ > /dev/null 2>&1 ;;
+  2) amixer -D pulse sset Master toggle > /dev/null 2>&1 ;;
+  3) amixer -D pulse sset Master 3%- > /dev/null 2>&1 ;;
 esac
 
 echo "$OUTPUT $VOLUME"

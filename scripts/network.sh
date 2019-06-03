@@ -6,7 +6,6 @@ IP=$(ip addr | grep inet | grep $ADAPTER | cut -d ' ' -f 6 | cut -d '/' -f 1)
 case ${ADAPTER:0:1} in
   # e ) ICON="" ;;
   e ) ICON="" ;;
-  # e ) ICON="" ;;
   w ) ICON="" ;;
 esac
 

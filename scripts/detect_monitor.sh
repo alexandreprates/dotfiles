@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 
 CURRENT=""
+HDMICLASS=$(find /sys/class/drm -name \*HDMI\*)
 
 while true; do
-  DUAL=$(cat /sys/class/drm/card0/card0-HDMI-A-1/status)
+  DUAL=$(cat $HDMICLASS/status)
 
   if [ "$DUAL" == "connected" ] && [ "$CURRENT" != "dual" ]; then
     CURRENT="dual"
