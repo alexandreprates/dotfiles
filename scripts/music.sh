@@ -16,9 +16,9 @@ TEXT_LENGTH=$(echo $TEXT | iconv -f utf-8 -t ascii//translit | wc --chars)
 if [ $TEXT_LENGTH -gt $DISPLAY_SIZE ]; then
   SCROLL=$(( $(date +%s) % $(( $TEXT_LENGTH - $DISPLAY_SIZE + 1 )) ))
   TEXT=${TEXT:SCROLL:DISPLAY_SIZE}
-else
-  TEXT=$(printf "%-30s" "$TEXT")
 fi
+
+TEXT=$(printf "%-30s" "$TEXT")
 
 if playerctl metadata | grep "spotify" > /dev/null; then
   PLAYER=""
