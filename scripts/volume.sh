@@ -17,4 +17,4 @@ case $BLOCK_BUTTON in
   3) amixer -D pulse sset Master 3%- > /dev/null 2>&1 ;;
 esac
 
-echo "$OUTPUT $VOLUME"
+echo "$OUTPUT$VOLUME"

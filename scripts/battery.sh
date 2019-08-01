@@ -20,24 +20,17 @@ else
     notify-send "Warning: Low battery!"
   fi
   if [ $(( $(date +%s) % 2 )) -eq 0 ]; then
-    BATTERY_ICON=" "
+    BATTERY_ICON=""
   else
-    BATTERY_ICON=" "
+    BATTERY_ICON=""
   fi
 fi
 
 
 if [ $STATUS != "Discharging" ] ; then
-  BATTERY_ICON=""
-  if [ -e /tmp/brightnessadjust ]; then
-    rm /tmp/brightnessadjust
+  BATTERY_ICON=""
+  if [ -e /tmp/batterynotification ]; then
     rm /tmp/batterynotification
-    brightnessctl s 100% > /dev/null 2>&1
-  fi
-else
-  if [ ! -e /tmp/brightnessadjust ]; then
-    touch /tmp/brightnessadjust
-    brightnessctl s 50% > /dev/null 2>&1
   fi
 fi
 
@@ -48,4 +41,4 @@ case $BLOCK_BUTTON in
   ;;
 esac
 
-echo "$BATTERY_ICON [$PERCENT]"
+echo "$BATTERY_ICON[$PERCENT]"

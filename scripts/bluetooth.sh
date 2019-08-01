@@ -18,4 +18,4 @@ fi
 #   1) toggleBluetooth ;;
 # esac
 
-echo " [$STATUS]"
+echo "[$STATUS]"

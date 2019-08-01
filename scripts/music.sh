@@ -7,8 +7,8 @@ case $BLOCK_BUTTON in
   3) playerctl next;;       # Play next music
 esac
 
-TITLE=$(playerctl metadata | grep title | cut -d " " -f 17-)
-ALBUM=$(playerctl metadata | grep album | cut -d " " -f 17-)
+TITLE=$(playerctl metadata title 2>/dev/null)
+ALBUM=$(playerctl metadata album 2>/dev/null)
 
 TEXT=$(echo "$TITLE - $ALBUM")
 TEXT_LENGTH=$(echo $TEXT | iconv -f utf-8 -t ascii//translit | wc --chars)
@@ -20,18 +20,14 @@ fi
 
 TEXT=$(printf "%-30s" "$TEXT")
 
-if playerctl metadata | grep "spotify" > /dev/null; then
-  PLAYER=""
-fi
+case $(playerctl metadata 2>/dev/null | head -n 1 | cut -d' ' -f1) in
+  chrome) PLAYER="";;
+  spotify) PLAYER="";;
+  *) PLAYER="";;
+esac
 
-case $(playerctl status) in
-  Playing)
-    echo "$PLAYER  [$TEXT]"
-    ;;
-  Paused)
-    echo "$PLAYER  [$TEXT]"
-    ;;
-  *)
-    echo ""
-  ;;
+case $(playerctl -p spotify status 2>/dev/null) in
+  Playing) echo "$PLAYER[:$TEXT]" ;;
+  Paused) echo "$PLAYER[:$TEXT]" ;;
+  *) echo "" ;;
 esac

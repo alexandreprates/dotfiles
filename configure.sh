@@ -14,7 +14,8 @@ function dotfile_link() {
 }
 
 for filename in $(pwd)/configs_and_inits/*; do
-  dotfile_link $filename
+	echo $filename
+	dotfile_link $filename
 done
 
 dotfile_link $HOME/.dotfiles/i3/config i3

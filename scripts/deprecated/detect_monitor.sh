@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+export DISPLAY=:0.0
 CURRENT=""
 HDMICLASS=$(find /sys/class/drm -name \*HDMI\*)
 

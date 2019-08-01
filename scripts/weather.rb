@@ -34,4 +34,4 @@ when 801..899
   weather_icon = ""
 end
 
-puts "#{weather_icon} [#{city}: #{temp.to_i}°]"
+puts "#{weather_icon}[#{city}: #{temp.to_i}°]"

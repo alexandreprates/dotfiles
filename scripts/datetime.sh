@@ -2,4 +2,4 @@
 
 DATE=$(date '+%A, %d %B %H:%M')
 
-echo " [$DATE]"
+echo "[$DATE]"

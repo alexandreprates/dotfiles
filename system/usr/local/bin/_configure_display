@@ -1,0 +1,13 @@
+#!/usr/bin/bash
+
+function connect() {
+  /usr/bin/xrandr --output HDMI-1 --auto --primary --left-of eDP-1
+}
+
+function disconnect() {
+  /usr/bin/xrandr --output HDMI-1 --off
+  /usr/bin/xrandr --output eDP-1 --primary
+}
+
+/usr/bin/xrandr | grep "HDMI-1 connected" > /dev/null && connect || disconnect
+/usr/bin/setxkbmap -model abnt2 -layout br -variant abnt2

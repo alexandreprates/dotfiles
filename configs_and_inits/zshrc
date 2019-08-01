@@ -6,6 +6,9 @@ ZSH_THEME="lost"
 
 plugins=(git docker docker-compose heroku)
 
+# Extra path settings
+PATH=$PATH:$HOME/.gem/ruby/2.6.0/bin
+
 # User configuration
 source $ZSH/oh-my-zsh.sh
 source $HOME/.dotfiles/scripts/toolbox.sh
