@@ -1,1 +1,0 @@
-../usr/local/bin/notify_low_battery.sh

@@ -27,7 +27,7 @@ case $(playerctl metadata 2>/dev/null | head -n 1 | cut -d' ' -f1) in
 esac
 
 case $(playerctl -p spotify status 2>/dev/null) in
-  Playing) echo "$PLAYER[:$TEXT]" ;;
-  Paused) echo "$PLAYER[:$TEXT]" ;;
+  Playing) echo "$PLAYER[ $TEXT]" ;;
+  Paused) echo "$PLAYER[ $TEXT]" ;;
   *) echo "" ;;
 esac

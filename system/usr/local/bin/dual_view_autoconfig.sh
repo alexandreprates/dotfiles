@@ -1,1 +1,0 @@
-../usr/local/bin/dual_view_autoconfig.sh

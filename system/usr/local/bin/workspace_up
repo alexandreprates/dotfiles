@@ -1,0 +1,17 @@
+#!/bin/sh
+
+function run() {
+  $@ &> /dev/null &
+  sleep 0.5
+}
+
+run google-chrome-stable
+run atom
+run slack
+run mailspring
+run zoom
+run spotify
+run terminology
+run terminology
+run terminology
+/usr/local/bin/_configure_workspaces

@@ -5,12 +5,9 @@ export XDG_CONFIG_HOME=$HOME/.config
 export ELECTRON_TRASH=trash-cli
 
 setxkbmap -model abnt2 -layout br -variant abnt2
-xbindkeys
 
 _xautolock -time 5 -locker ~/.lockscreen &
 dunst -config $HOME/.dunstrc &
-feh --randomize --bg-fill ~/.wallpapers &
-
-xrandr --output HDMI-1 --primary --left-of eDP-1
+feh --randomize --bg-fill ~/.wallpapers
 
 exec $1
