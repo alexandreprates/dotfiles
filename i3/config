@@ -157,6 +157,10 @@ for_window [class="zoom"] move to workspace 8
 for_window [class="Spotify"] move to workspace 9
 for_window [class="terminology"] move to workspace 10
 
+for_window [class="Pavucontrol"] floating enable
+for_window [class="Pavucontrol"] resize set 640 480
+for_window [class="Pavucontrol"] move [absolute] position center
+
 # class                 border    background  text
 client.focused          #282828   #257fad     #ffffff
 client.focused_inactive #383838   #585858     #888888
