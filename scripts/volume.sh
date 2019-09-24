@@ -6,8 +6,8 @@ else
   OUTPUT=""
 fi
 
-VOLUME=$(amixer -D pulse sget Master | tail -n1 | cut -d ' ' -f 7)
-if [ $(amixer -D pulse sget Master | tail -n1 | cut -d ' ' -f 8) == "[off]" ]; then
+VOLUME=$(amixer get Master | tail -n1 | cut -d ' ' -f 7)
+if [ $(amixer get Master | tail -n1 | cut -d ' ' -f 8) == "[off]" ]; then
   VOLUME="[MUTE]"
 fi
 

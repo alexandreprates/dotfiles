@@ -1,2 +1,2 @@
 # Force keyboard layout load on generic usb_interface added
-ACTION=="add", ATTRS{idVendor}=="413c", ATTRS{idProduct}=="2113", ENV{DISPLAY}=":0", ENV{XAUTHORITY}="/home/alexandreprates/.Xauthority", RUN+="/usr/bin/setxkbmap -model abnt2 -layout br -variant abnt2"
+# ACTION=="add", ATTRS{idVendor}=="413c", ATTRS{idProduct}=="2113", ENV{DISPLAY}=":0", ENV{XAUTHORITY}="/home/alexandreprates/.Xauthority", RUN+="/usr/bin/setxkbmap -model abnt2 -layout br -variant abnt2"

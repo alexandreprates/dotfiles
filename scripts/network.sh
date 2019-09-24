@@ -14,6 +14,7 @@ case ${ADAPTER:0:1} in
 esac
 
 case $BLOCK_BUTTON in
+  1) echo $IP | xclip -selection c ;;
   3) sudo wpa_gui > /dev/null 2>&1 &;;
 esac
 

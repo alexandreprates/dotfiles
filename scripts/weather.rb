@@ -12,10 +12,10 @@ location = JSON.parse data.read
 data = open("http://api.openweathermap.org/data/2.5/weather?lat=#{location['lat']}&lon=#{location['lon']}&units=metric&APPID=#{APPID}")
 data_hash = JSON.parse data.read
 
-city = location["city"]
+city       = data_hash.dig('name')
 weather_id = data_hash.dig('weather', 0, 'id')
-temp = data_hash.dig('main', 'temp')
-humd = data_hash.dig('main', 'humidity')
+temp       = data_hash.dig('main', 'temp')
+humd       = data_hash.dig('main', 'humidity')
 
 case weather_id
 when 200..299

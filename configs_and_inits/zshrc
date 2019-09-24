@@ -15,6 +15,7 @@ source $HOME/.dotfiles/scripts/toolbox.sh
 
 # Load aliases
 [[ -s "$HOME/.alias.sh" ]] && source "$HOME/.alias.sh"
+[[ -s "$HOME/.functions.sh" ]] && source "$HOME/.functions.sh"
 
 # Load go2dir
 [[ -s "$HOME/.go2dir/go2dir.sh" ]] && source "$HOME/.go2dir/go2dir.sh"
