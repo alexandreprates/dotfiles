@@ -11,3 +11,4 @@ function disconnect() {
 
 /usr/bin/xrandr | grep "HDMI-1 connected" > /dev/null && connect || disconnect
 /usr/bin/setxkbmap -model abnt2 -layout br -variant abnt2
+/usr/bin/feh --randomize --bg-fill ~/.wallpapers
