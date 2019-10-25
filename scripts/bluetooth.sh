@@ -8,11 +8,11 @@ function toggleBluetooth() {
   fi
 }
 
-if hciconfig | grep DOWN > /dev/null ; then
-  STATUS="Off"
-else
-  STATUS="On"
-fi
+#if hciconfig | grep DOWN > /dev/null ; then
+#  STATUS="Off"
+#else
+#  STATUS="On"
+#fi
 
 # case $BLOCK_BUTTON in
 #   1) toggleBluetooth ;;

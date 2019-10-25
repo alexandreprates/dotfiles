@@ -5,6 +5,8 @@ pidof i3lock
 
 SCREENSHOT=/tmp/screenshot.png
 
+[ -f $SCREENSHOT ] && rm $SCREENSHOT
+
 scrot -z -q 1 $SCREENSHOT
 convert $SCREENSHOT -filter Gaussian -resize 50% -define filter:sigma=2 -resize 200% $SCREENSHOT
 i3lock -i $SCREENSHOT --nofork

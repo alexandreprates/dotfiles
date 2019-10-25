@@ -1,0 +1,9 @@
+#!/usr/bin/bash
+
+CURRENT=$(light -s sysfs/leds/dell::kbd_backlight -G)
+
+if [ "$CURRENT" == "0.00" ]; then
+    sudo light -s sysfs/leds/dell::kbd_backlight -A 100
+else
+    sudo light -s sysfs/leds/dell::kbd_backlight -U 100
+fi

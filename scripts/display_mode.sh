@@ -12,17 +12,17 @@ function write_mode() {
 
 function apply_mode() {
   case $CURRENT in
-    eDP-1 )
-      xrandr --output eDP-1 --auto
-      xrandr --output HDMI-1 --off
+    eDP1 )
+      xrandr --output eDP1 --auto
+      xrandr --output HDMI1 --off
       ;;
-    HDMI-1 )
-      xrandr --output eDP-1 --off
-      xrandr --output HDMI-1 --auto
+    HDMI1 )
+      xrandr --output eDP1 --off
+      xrandr --output HDMI1 --auto
       ;;
     * )
-      xrandr --output eDP-1 --auto
-      xrandr --output HDMI-1 --auto
+      xrandr --output eDP1 --auto
+      xrandr --output HDMI1 --auto
       _configure_display
       ;;
   esac
@@ -30,28 +30,28 @@ function apply_mode() {
 
 function next_mode() {
   case $CURRENT in
-    HDMI-1 )
-      CURRENT=eDP-1
+    HDMI1 )
+      CURRENT=eDP1
       ;;
-    eDP-1 )
+    eDP1 )
       CURRENT=DUAL
       ;;
     * )
-      CURRENT=HDMI-1
+      CURRENT=HDMI1
       ;;
   esac
 }
 
 function prev_mode() {
   case $CURRENT in
-    HDMI-1 )
+    HDMI1 )
       CURRENT=DUAL
       ;;
-    eDP-1 )
-      CURRENT=HDMI-1
+    eDP1 )
+      CURRENT=HDMI1
       ;;
     * )
-      CURRENT=eDP-1
+      CURRENT=eDP1
     ;;
   esac
 }
@@ -73,10 +73,10 @@ case $CURRENT in
   DUAL )
     echo " "
     ;;
-  HDMI-1 )
+  HDMI1 )
   echo ""
     ;;
-  eDP-1 )
+  eDP1 )
   echo ""
     ;;
 esac

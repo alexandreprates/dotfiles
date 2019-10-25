@@ -1,14 +1,23 @@
 #!/usr/bin/bash
 
+echo "Init" >> /tmp/configure_display.log
+
 function connect() {
-  /usr/bin/xrandr --output HDMI-1 --auto --primary --left-of eDP-1
+  echo "Connect" >> /tmp/configure_display.log
+  /usr/bin/xrandr --output HDMI1 --auto --primary --left-of eDP1
 }
 
 function disconnect() {
-  /usr/bin/xrandr --output HDMI-1 --off
-  /usr/bin/xrandr --output eDP-1 --primary
+  echo "Disconnect" >> /tmp/configure_display.log
+  /usr/bin/xrandr --output HDMI1 --off
+  /usr/bin/xrandr --output eDP1 --primary
 }
 
-/usr/bin/xrandr | grep "HDMI-1 connected" > /dev/null && connect || disconnect
-/usr/bin/setxkbmap -model abnt2 -layout br -variant abnt2
-/usr/bin/feh --randomize --bg-fill ~/.wallpapers
+until [ xrandr ]; do
+  sleep 1
+done
+
+/usr/bin/xrandr | grep "HDMI1 connected" > /dev/null && connect || disconnect
+
+# /usr/bin/setxkbmap -model abnt2 -layout br -variant abnt2
+# /usr/bin/feh --randomize --bg-fill ~/.wallpapers
