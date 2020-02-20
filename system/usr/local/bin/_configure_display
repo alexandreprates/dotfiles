@@ -1,14 +1,14 @@
 #!/usr/bin/bash
 
-echo "Init" >> /tmp/configure_display.log
+#echo "Init" >> /tmp/configure_display.log
 
 function connect() {
-  echo "Connect" >> /tmp/configure_display.log
+ # echo "Connect" >> /tmp/configure_display.log
   /usr/bin/xrandr --output HDMI1 --auto --primary --left-of eDP1
 }
 
 function disconnect() {
-  echo "Disconnect" >> /tmp/configure_display.log
+  # echo "Disconnect" >> /tmp/configure_display.log
   /usr/bin/xrandr --output HDMI1 --off
   /usr/bin/xrandr --output eDP1 --primary
 }

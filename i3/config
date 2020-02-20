@@ -24,7 +24,7 @@ bindsym $mod+l exec ~/.lockscreen
 #bindsym --release Mod4+c exec --no-startup-id xdotool key --clearmodifiers ctrl+c
 
 # Navigate through workspaces
-bindsym Mod1+Tab workspace next
+# bindsym Mod1+Tab workspace next
 
 # change focus
 bindsym $mod+Left focus left
@@ -144,7 +144,7 @@ popup_during_fullscreen smart
 # assign [class="^zoom$"] → number 8
 # assign [class="^terminology$"] → number 10
 
-for_window [title="Zoom - Pro Account"] floating enable
+# for_window [title="Zoom - Pro Account"] floating enable
 
 for_window [class="Google-chrome"] move to workspace 1
 for_window [class="Atom"] move to workspace 2

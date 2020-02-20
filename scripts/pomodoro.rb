@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
-
 require "yaml"
+
+POMODORO_DURATION = 25
 
 class Config
   attr_accessor :timer, :cycle, :rest
@@ -56,13 +57,14 @@ end
 
 case ENV['BLOCK_BUTTON']
 when "1"
-  current.timer = Time.now.to_i + (25 * 60) unless current.timer
+  current.timer = Time.now.to_i + (POMODORO_DURATION * 60) unless current.timer
 when "3"
   current.timer = nil
   current.rest = false
 end
 
 icon = current.rest ? "" : ""
+pomodoro_count = current.rest ? "" : "#{current.cycle}  "
 
 if current.timer
   counter = Time.at(current.timer - Time.now.to_i)
@@ -80,13 +82,13 @@ if current.timer
       # system "$HOME/.dotfiles/scripts/pomodoro_breaktime.sh &"
       `playerctl pause &`
       `notify-send 'Pomodoro' 'Break time!' &`
-      `convert -size 1440x900 xc:White -gravity Center -font "Font-Awesome-5-Free-Solid" -weight 700 -pointsize 600 -fill "graya(50%, 0.5)" -annotate +300+0 "  " -fill black -font "DejaVu-Sans-Book" -weight 700 -pointsize 200  -annotate 0 "Break\nTime!" png:- | feh -FZYx - &`
+      `convert -size 1440x900 xc:White -gravity Center -font "Font-Awesome-5-Free-Solid" -weight 700 -pointsize 600 -fill "graya(50%, 0.5)" -annotate +300+0 "  " -fill black -font "DejaVu-Sans-Book" -weight 700 -pointsize 200  -annotate 0 "Break\nTime!" png:- | feh --auto-zoom --borderless --fullscreen --hide-pointer --no-menus - &`
     end
   end
 
-  puts "#{icon}[#{counter.strftime('%M:%S')}]"
+  puts "#{icon}[#{pomodoro_count}#{counter.strftime('%M:%S')}]"
 else
-  puts "#{icon}[00:00]"
+  puts "#{icon}[#{pomodoro_count}00:00]"
 end
 
 save_and_exit(current)

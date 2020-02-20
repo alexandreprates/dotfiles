@@ -1,0 +1,15 @@
+#! /bin/bash
+
+function set_wallpaper() {
+  feh --randomize --bg-fill ~/.wallpapers
+}
+
+if [ "$1" == "-r" ]; then
+  while [ true ]
+  do
+    set_wallpaper
+    sleep $((4 * 60))
+  done
+else
+  set_wallpaper
+fi
