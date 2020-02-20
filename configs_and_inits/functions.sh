@@ -10,7 +10,7 @@ function hilight {
 }
 
 # Executa o comando em background no diretorio atual
-function here {
+function background {
   $1 . > /dev/null 2>&1 &
 }
 
