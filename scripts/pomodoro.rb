@@ -64,7 +64,7 @@ when "3"
 end
 
 icon = current.rest ? "" : ""
-pomodoro_count = current.rest ? "" : "#{current.cycle}  "
+pomodoro_count = current.rest ? "" : "#{current.cycle}"
 
 if current.timer
   counter = Time.at(current.timer - Time.now.to_i)

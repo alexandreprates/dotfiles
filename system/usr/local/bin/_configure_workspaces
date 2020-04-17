@@ -1,14 +1,16 @@
 #!/usr/bin/bash
+#set -x
 
 /usr/bin/setxkbmap -model abnt2 -layout br -variant abnt2
 /usr/bin/feh --randomize --bg-fill ~/.wallpapers
+
 
 STR=$(/usr/bin/i3-msg -t get_workspaces)  #String with names
 IFS='{' read -ra WORKSPACES <<< "$STR"    #Convert string to array
 
 for i in "${WORKSPACES[@]}"; do
   if echo $i | grep focused\"\:true > /dev/null ; then
-    CURRENT_WORKSPACE=$(echo $i | cut -d ',' -f 1 | cut -d : -f 2)
+    CURRENT_WORKSPACE=$(echo $i | cut -d ',' -f 2 | cut -d : -f 2)
   fi
 done
 
@@ -22,3 +24,5 @@ for (( i = 1; i <= 10; i++ )); do
 done
 
 /usr/bin/i3-msg "workspace $CURRENT_WORKSPACE" > /dev/null
+
+#set +x
