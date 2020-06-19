@@ -9,12 +9,13 @@ ZSH_THEME="lost"
 plugins=(git docker docker-compose heroku)
 
 # Extra path settings
-PATH=$PATH:$HOME/.gem/ruby/2.6.0/bin
+PATH="/usr/local/sbin:/usr/local/opt/python@3.8/bin:$PATH"
 
 # User configuration
 source $ZSH/oh-my-zsh.sh
 
-# Load aliases
+# Xtras
+[[ -s "$HOME/.custom_exports.sh" ]] && source "$HOME/.custom_exports.sh"
 [[ -s "$HOME/.alias.sh" ]] && source "$HOME/.alias.sh"
 [[ -s "$HOME/.functions.sh" ]] && source "$HOME/.functions.sh"
 

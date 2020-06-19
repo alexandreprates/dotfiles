@@ -33,3 +33,7 @@ function docker-stop() {
 function docker-stall() {
   docker ps -q | xargs docker stop
 }
+
+function docker-login-aws() {
+  aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com
+}
