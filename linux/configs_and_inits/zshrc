@@ -6,7 +6,7 @@ export PATH="$PATH:$HOME/.local/bin"
 
 ZSH_THEME="lost"
 
-plugins=(git docker docker-compose heroku)
+plugins=(git kubectl docker docker-compose heroku)
 
 # Extra path settings
 PATH="/usr/local/sbin:/usr/local/opt/python@3.8/bin:$PATH"
