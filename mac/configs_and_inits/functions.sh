@@ -1,14 +1,5 @@
 #!/usr/bin/env bash
 
-# Find for text into ruby/erb files (recursively)
-function gdig {
-  grep $1 * -Rn --include \*.rb --include \*.erb
-}
-
-function hilight {
-  sed ''/$1/s//`printf "\033[1;41m$1\033[0m"`/'' $2 ;
-}
-
 # Executa o comando em background no diretorio atual
 function background {
   $1 . > /dev/null 2>&1 &

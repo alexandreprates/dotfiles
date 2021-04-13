@@ -9,7 +9,7 @@ ZSH_THEME="lost"
 plugins=(git git-prompt  kubectl docker docker-compose heroku)
 
 # Extra path settings
-PATH="/usr/local/sbin:/usr/local/opt/python@3.8/bin:$PATH"
+PATH="/usr/local/sbin:$PATH"
 
 # User configuration
 source $ZSH/oh-my-zsh.sh
