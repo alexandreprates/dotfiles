@@ -24,13 +24,7 @@ function configureLinux() {
 }
 
 function configureMac() {
-  for filename in $(pwd)/linux/configs_and_inits/*; do
-  	echo $filename
-  	placefile $filename
-  done
-
-  # Installs
-  # Brew https://brew.sh/index_pt-br
+  # Homebrew https://brew.sh/index_pt-br
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
   brew install zsh git gpg vim
@@ -39,8 +33,12 @@ function configureMac() {
 
   # go2dir https://github.com/alexandreprates/go2dir
   curl https://raw.githubusercontent.com/alexandreprates/go2dir/master/install | bash
-}
 
+  for filename in $(pwd)/linux/configs_and_inits/*; do
+    echo $filename
+    placefile $filename
+  done
+}
 
 unameOut="$(uname -s)"
 case "${unameOut}" in
@@ -49,7 +47,7 @@ case "${unameOut}" in
     *)          echo "Unsupported OS!"; exit 1;;
 esac
 
-echo Please insert your git email address && read MYEMAIL
+echo Please insert your git email address && read -e MYEMAIL
 
 git config --global commit.gpgsign true
 git config --global user.email "$MYEMAIL"
