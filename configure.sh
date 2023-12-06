@@ -20,7 +20,7 @@ function configureLinux() {
   	placefile $filename
   done
 
-  dotfile_link $HOME/.dotfiles/i3/config i3
+  #dotfile_link $HOME/.dotfiles/i3/config i3
 }
 
 function configureMac() {
