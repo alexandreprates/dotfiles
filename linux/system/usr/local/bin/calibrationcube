@@ -1,4 +1,0 @@
-#!/bin/sh
-
-AVG=$(expr \( \( \( $1 + $2 + $3 + $4 \) / 4 \) / 8 \))
-echo New calibration value is $(($AVG * 10))

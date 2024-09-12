@@ -1,0 +1,41 @@
+# Executa o comando em background no diretorio atual
+background() {
+  $1 . > /dev/null 2>&1 &
+}
+
+# chown me all files in dir
+reown() {
+  GROUP=$(id -gn)
+  # find . -path ./tmp -prune -o \! -user $USER -exec sudo chown $USER:$GROUP -v {} \;
+  find . -not -path "*/node_modules/*" -not -path "*/logs/*" -not -path "*/tmp/*" -not -user $USER -exec sudo chown $USER:$GROUP -v {} \;
+}
+
+backup() {
+  FILENAME=$(pwd | rev | cut -d "/" -f 1 | rev)
+  tar -cjvf ../backup-$FILENAME-`date +"%F"`.tar.bz2 --exclude .git --exclude tmp --exclude logs  --exclude log .
+}
+
+md5_rename() {
+    if [ $# -ne 1 ]; then
+        echo "USage: md5_rename <path>"
+        return 1
+    fi
+
+    target_dir="$1"
+
+    if [ ! -d "$target_dir" ]; then
+        echo "Dir '$target_dir' not exists."
+        return 1
+    fi
+
+    cd "$target_dir" || return 1
+
+    for filename in *; do
+        # Check for regular file
+        if [ -f "$filename" ]; then
+            filehash=$(md5sum "$filename" | awk '{ print $1 }')
+            fileext="${filename##*.}"
+            mv -v "$filename" "${filehash}.${fileext}"
+        fi
+    done
+}
