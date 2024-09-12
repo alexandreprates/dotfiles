@@ -1,0 +1,37 @@
+md5_rename() {
+    if [ $# -ne 1 ]; then
+        echo "Usage: md5_rename <path>"
+        return 1
+    fi
+
+    target_dir="$1"
+
+    if [ ! -d "$target_dir" ]; then
+        echo "Dir '$target_dir' not exists."
+        return 1
+    fi
+
+    cd "$target_dir" || return 1
+
+    for filename in *; do
+        # Check for regular file
+        if [ -f "$filename" ]; then
+            filehash=$(md5sum "$filename" | awk '{ print $1 }')
+            fileext="${filename##*.}"
+            mv -v "$filename" "${filehash}.${fileext}"
+        fi
+    done
+}
+
+download() {
+	URL=$1
+	FILENAME=$(echo $URL | rev | cut -d \/ -f 1 | rev | cut -d \? -f 1)
+
+	aria2c "$URL" -o "$FILENAME"
+}
+
+cd() {
+  builtin cd $@
+  #[ -f .conda_env ] && conda activate $(cat .conda_env) || conda deactivate
+  [ -f .cd_autorun ] && source .cd_autorun
+}

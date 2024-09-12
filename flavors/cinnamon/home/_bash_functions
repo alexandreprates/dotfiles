@@ -17,7 +17,7 @@ backup() {
 
 md5_rename() {
     if [ $# -ne 1 ]; then
-        echo "USage: md5_rename <path>"
+        echo "Usage: md5_rename <path>"
         return 1
     fi
 
