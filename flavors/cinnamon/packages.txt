@@ -1,0 +1,9 @@
+thinkfan
+sensors
+lm_sensors-devel
+libsensors-dev
+plank
+google-chrome-stable
+albert
+podman
+spotify

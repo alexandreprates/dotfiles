@@ -1,5 +1,7 @@
 #!/bin/bash
 
+
+
 create_link() {
     PREFIX="$1"
     SOURCE="$2"
@@ -17,7 +19,7 @@ create_link() {
 }
 
 install() {
-    for SOURCE in $(find $1 -type f); do
+    for SOURCE in $(find $1 -type f -name packages.txt -prune -o -type f -print); do
         BASE_DIR=$(echo $SOURCE | sed "s|$1||g")
         DESTINATION=$(echo $BASE_DIR | sed "s|/home|$HOME|g" | sed "s|/_|/.|g")
 
