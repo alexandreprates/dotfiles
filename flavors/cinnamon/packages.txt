@@ -6,4 +6,5 @@ plank
 google-chrome-stable
 albert
 podman
+podman-desktop
 spotify
