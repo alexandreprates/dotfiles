@@ -1,0 +1,6 @@
+alias ollama_local='launchctl setenv OLLAMA_HOST "0.0.0.0"'
+alias ollama_brainiac='launchctl setenv OLLAMA_HOST "brainiac.internal"'
+
+alias prun="podman run -it --rm "
+alias pbuild="podman build . -t "
+alias docker="podman"

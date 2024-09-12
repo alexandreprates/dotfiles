@@ -1,16 +1,84 @@
+# Load conda hooks
+eval "$(conda "shell.$(basename "${SHELL}")" hook)"
+
 # Executa o comando em background no diretorio atual
-function background {
+background() {
   $1 . > /dev/null 2>&1 &
 }
 
 # chown me all files in dir
-function reown {
+reown() {
   GROUP=$(id -gn)
-  # find . -path ./tmp -prune -o \! -user $USER -exec sudo chown $USER:$GROUP -v {} \;
-  find . -not -path "*/node_modules/*" -not -path "*/logs/*" -not -path "*/tmp/*" -not -user $USER -exec sudo chown $USER:$GROUP -v {} \;
+  find . -not -user $USER -exec sudo chown $USER:$GROUP -v {} \;
 }
 
-function backup {
-  FILENAME=$(pwd | rev | cut -d "/" -f 1 | rev)
-  tar -cjvf ../backup-$FILENAME-`date +"%F"`.tar.bz2 --exclude .git --exclude tmp --exclude logs  --exclude log .
+# create a backup file in parent dir
+backup {
+  FILENAME=$(basename $(pwd))
+  tar -cjvf ../backup-$FILENAME-`date +"%F"`.tar.bz2 --exclude .git --exclude logs  --exclude log .
+  echo Created new backup $BACKUP_NAME
+}
+
+# force all running containers to stop
+podman-stall() {
+  podman ps -q | xargs podman stop
+}
+
+# create a tunnel
+mytunnel() {
+  if [ -z "$1" ] || ! [[ "$1" =~ ^[0-9]+$ ]]; then
+    echo "Invalid PORT argument!"
+    echo "Usage: mytunnel PORT [-v]"
+    return 1
+  fi
+
+  local_port=$1
+  verbose=""
+
+  shift
+
+  while getopts ":v" opt; do
+    case ${opt} in
+      v)
+        verbose="-v"
+        ;;
+      \?)
+        echo "Invalid option: -$OPTARG" 1>&2
+        echo "Usage: mytunnel PORT [-v]"
+        return 1
+        ;;
+    esac
+  done
+  shift $((OPTIND -1))
+
+  nc -z localhost $local_port
+  if [ $? -ne 0 ] ; then
+   echo "Fail to connect to port localhost:$local_port"
+   return 1
+  fi
+
+  echo "Redirecting localhost:$local_port to https://mytunnel.ddns.net"
+  ssh $verbose -N -o ServerAliveInterval=20 -R 8000:localhost:$local_port mytunnel.ddns.net
+}
+
+# clean all __pycache__ dirs (recursive)
+pyclean() {
+  find . -type d -name __pycache__ -exec rm -rf {} \;
+}
+
+# Sync dir content between local and remote host
+sync_source() {
+	SOURCE=$1
+	DESTINATION=$2
+
+	# initial sync step
+	rsync -a --progress "$SOURCE" "$DESTINATION"
+
+	# initial check may take some time, later changes may be instant
+	fswatch --one-per-batch --latency 1 --verbose "$SOURCE" | xargs -I{} rsync -ra --progress "$SOURCE" "$DESTINATION"
+}
+
+# helper to disable ipv6 adapter
+disable_ipv6() {
+	networksetup -setv6off Wi-Fi
 }
