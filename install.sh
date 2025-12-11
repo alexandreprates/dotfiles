@@ -235,8 +235,6 @@ run_configuration() {
     local configure_script="$flavor_dir/configure.sh"
 
     print_status "Running configuration for $flavor..."
-    cd "$flavor_dir"
-    chmod +x "$configure_script"
 
     if $configure_script; then
         print_success "Configuration for $flavor completed successfully!"
@@ -279,7 +277,7 @@ main() {
     # Check if flavor exists
     if ! check_flavor_exists "$target_flavor"; then
         print_error "Available flavors:"
-        ls -1 "$HOME/.dotfiles/flavors/" 2>/dev/null || echo "  No flavors found"
+        find "$HOME/.dotfiles/flavors" -maxdepth 1 -type d -not -path "$HOME/.dotfiles/flavors" -exec basename {} \; 2>/dev/null | sort || echo "  No flavors found"
         exit 1
     fi
 
@@ -319,7 +317,7 @@ show_help() {
     echo
     echo "Available flavors:"
     if [[ -d "$HOME/.dotfiles/flavors" ]]; then
-        ls -1 "$HOME/.dotfiles/flavors/" 2>/dev/null | sed 's/^/  - /'
+        find "$HOME/.dotfiles/flavors" -maxdepth 1 -type d -not -path "$HOME/.dotfiles/flavors" -exec basename {} \; 2>/dev/null | sort | sed 's/^/  - /' || echo "  (No flavors found)"
     else
         echo "  (Repository not yet cloned)"
     fi
