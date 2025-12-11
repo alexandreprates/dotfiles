@@ -284,13 +284,6 @@ main() {
     # Confirm installation
     echo
     print_status "Ready to install dotfiles for: $target_flavor"
-    read -p "Do you want to continue? (y/N): " -n 1 -r
-    echo
-
-    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-        print_warning "Installation cancelled."
-        exit 0
-    fi
 
     # Run configuration
     if run_configuration "$target_flavor"; then
