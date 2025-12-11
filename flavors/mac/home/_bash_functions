@@ -13,10 +13,10 @@ reown() {
 }
 
 # create a backup file in parent dir
-backup {
+backup() {
   FILENAME=$(basename $(pwd))
   tar -cjvf ../backup-$FILENAME-`date +"%F"`.tar.bz2 --exclude .git --exclude logs  --exclude log .
-  echo Created new backup $BACKUP_NAME
+  echo "Created new backup $BACKUP_NAME"
 }
 
 # create a tunnel
