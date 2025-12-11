@@ -13,20 +13,21 @@ BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
 # Function to print colored output
+# Uses stderr to ensure messages are always visible even when stdout is captured
 print_status() {
-    echo -e "${BLUE}[INFO]${NC} $1"
+    echo -e "${BLUE}[INFO]${NC} $1" >&2
 }
 
 print_success() {
-    echo -e "${GREEN}[SUCCESS]${NC} $1"
+    echo -e "${GREEN}[SUCCESS]${NC} $1" >&2
 }
 
 print_warning() {
-    echo -e "${YELLOW}[WARNING]${NC} $1"
+    echo -e "${YELLOW}[WARNING]${NC} $1" >&2
 }
 
 print_error() {
-    echo -e "${RED}[ERROR]${NC} $1"
+    echo -e "${RED}[ERROR]${NC} $1" >&2
 }
 
 # Function to download repository as zip when git is not available
@@ -285,16 +286,7 @@ main() {
     echo
     print_status "Ready to install dotfiles for: $target_flavor"
 
-    # Run configuration
-    if run_configuration "$target_flavor"; then
-        echo
-        print_success "Dotfiles installation completed successfully!"
-        print_status "You may need to restart your shell or source your configuration files."
-    else
-        echo
-        print_error "Installation failed. Please check the error messages above."
-        exit 1
-    fi
+    run_configuration "$target_flavor"
 }
 
 # Show help
