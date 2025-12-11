@@ -1,7 +1,5 @@
 #!/bin/bash
 
-
-
 create_link() {
     PREFIX="$1"
     SOURCE="$2"
