@@ -32,7 +32,7 @@ print_error() {
 # Function to download repository as zip when git is not available
 download_zip_repository() {
     local repo_url="https://github.com/alexandreprates/dotfiles"
-    local zip_url="$repo_url/archive/refs/heads/main.zip"
+    local zip_url="$repo_url/archive/refs/heads/master.zip"
     local target_dir="$HOME/.dotfiles"
     local temp_dir
     local zip_file
@@ -79,7 +79,7 @@ download_zip_repository() {
     if command -v unzip >/dev/null 2>&1; then
         if unzip -q "$zip_file" -d "$temp_dir"; then
             # Move the extracted directory to target location
-            mv "$temp_dir/dotfiles-main" "$target_dir"
+            mv "$temp_dir/dotfiles-master" "$target_dir"
             print_success "Repository extracted successfully"
         else
             print_error "Failed to extract ZIP file with unzip"
@@ -89,7 +89,7 @@ download_zip_repository() {
     elif command -v tar >/dev/null 2>&1; then
         # Try with tar if unzip is not available (some minimal systems)
         if tar -xf "$zip_file" -C "$temp_dir" 2>/dev/null; then
-            mv "$temp_dir/dotfiles-main" "$target_dir"
+            mv "$temp_dir/dotfiles-master" "$target_dir"
             print_success "Repository extracted successfully with tar"
         else
             print_error "Failed to extract ZIP file. Neither unzip nor compatible tar available."
@@ -140,7 +140,7 @@ setup_repository() {
         fi
 
         # Pull latest changes
-        if git pull origin main; then
+        if git pull origin master; then
             print_success "Repository updated successfully"
         else
             print_warning "Failed to pull latest changes, continuing with current version..."
@@ -236,8 +236,9 @@ run_configuration() {
 
     print_status "Running configuration for $flavor..."
     cd "$flavor_dir"
+    chmod +x "$configure_script"
 
-    if ./configure.sh; then
+    if $configure_script; then
         print_success "Configuration for $flavor completed successfully!"
         return 0
     else
