@@ -8,12 +8,12 @@ export EDITOR=vim
 export PATH="$PATH:$HOME/.local/bin"
 
 plugins=(
-  git
-  git-prompt
   aws
-  kubectl
+  battery
   docker
   docker-compose
+  git
+  git-prompt
 )
 
 # Load OMZ!
