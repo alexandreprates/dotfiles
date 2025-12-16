@@ -32,6 +32,9 @@ fi
 
 echo "Configuring macOS flavor..."
 
+echo "Check xcode..."
+sudo xcode-select --switch $(xcode-select -p)
+
 # echo "Install brew"
 # /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
