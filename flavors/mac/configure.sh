@@ -46,6 +46,9 @@ brew update
 echo "Installing packages from Brewfile..."
 brew bundle --file "$DOTFILES_DIR/flavors/mac/Brewfile"
 
+echo "Install Oh-my-zsh"
+git clone https://github.com/ohmyzsh/ohmyzsh.git $HOME/.oh-my-zsh
+
 echo "Install Go2Dir..."
 curl https://raw.githubusercontent.com/alexandreprates/go2dir/master/install | bash
 
