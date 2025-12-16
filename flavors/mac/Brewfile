@@ -1,6 +1,12 @@
 # Homebrew Bundle File
 # Install with: brew bundle --file=Brewfile
 
+# Main apps
+cask "bitwarden"
+cask "google-chrome"
+cask "visual-studio-code"
+cask "codex"
+
 # Development tools
 brew "arduino-cli"
 brew "awscli"
@@ -20,13 +26,8 @@ brew "npm"
 brew "rsync"
 brew "telnet"
 brew "tree"
+brew "coreutils"
 brew "zsh"
 
 # Python package manager
 cask "miniconda"
-
-# Main apps
-cask "bitwarden"
-cask "google-chrome"
-cask "slack"
-cask "visual-studio-code"
