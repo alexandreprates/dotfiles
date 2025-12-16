@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#/usr/bin/env bash
 
 # Define the dotfiles directory
 DOTFILES_DIR="$HOME/.dotfiles"
@@ -37,6 +37,9 @@ sudo xcode-select --switch $(xcode-select -p)
 
 echo "Install brew"
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' > $HOME/.zprofile
+eval "$(/opt/homebrew/bin/brew shellenv)"
 
 brew update
 
