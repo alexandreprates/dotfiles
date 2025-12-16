@@ -35,13 +35,13 @@ echo "Configuring macOS flavor..."
 echo "Check xcode..."
 sudo xcode-select --switch $(xcode-select -p)
 
-# echo "Install brew"
-# /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+echo "Install brew"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-# brew update
+brew update
 
-# echo "Installing packages from Brewfile..."
-# brew bundle --file "$DOTFILES_DIR/flavors/mac/Brewfile"
+echo "Installing packages from Brewfile..."
+brew bundle --file "$DOTFILES_DIR/flavors/mac/Brewfile"
 
 echo "Install Go2Dir..."
 curl https://raw.githubusercontent.com/alexandreprates/go2dir/master/install | bash
