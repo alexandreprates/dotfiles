@@ -4,23 +4,24 @@
 # Main apps
 cask "bitwarden"
 cask "google-chrome"
-cask "visual-studio-code"
-cask "codex"
 cask "keepingyouawake"
 cask "spotify"
+cask "visual-studio-code"
 
 # Development tools
 brew "arduino-cli"
 brew "awscli"
 brew "azure-cli"
-brew "git"
 brew "git-lfs"
 brew "git-xet"
+brew "git"
 brew "huggingface-cli"
 brew "platformio"
-brew "python"
+brew "vim"
+cask "codex"
 
 # System utilities
+brew "coreutils"
 brew "fswatch"
 brew "jq"
 brew "nmap"
@@ -28,8 +29,14 @@ brew "npm"
 brew "rsync"
 brew "telnet"
 brew "tree"
-brew "coreutils"
+brew "wget"
 brew "zsh"
 
-# Python package manager
+# Python
+brew "python@3.10"
+brew "python@3.11"
+brew "python@3.12"
 cask "miniconda"
+
+# VSCode extensions
+vscode "platformio.platformio-ide"
