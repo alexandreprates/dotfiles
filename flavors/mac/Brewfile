@@ -40,3 +40,6 @@ cask "miniconda"
 
 # VSCode extensions
 vscode "platformio.platformio-ide"
+
+# Ollama LLM tool
+cask "ollama-app"
