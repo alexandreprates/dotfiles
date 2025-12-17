@@ -33,6 +33,9 @@ brew "tree"
 brew "wget"
 brew "zsh"
 
+# Docker replacement
+brew "orbstack"
+
 # Python
 brew "python@3.10"
 brew "python@3.11"
