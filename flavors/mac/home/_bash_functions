@@ -1,5 +1,9 @@
 # Load conda hooks
-#eval "$(conda "shell.$(basename "${SHELL}")" hook)"
+cd() {
+  builtin cd $@
+  [ -f .conda_env ] && conda activate $(cat .conda_env) || conda deactivate
+  [ -f .venv ] && source .venv/bin/activate
+}
 
 # Executa o comando em background no diretorio atual
 background() {
