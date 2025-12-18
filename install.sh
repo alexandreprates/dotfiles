@@ -230,6 +230,48 @@ check_flavor_exists() {
 }
 
 # Function to run configuration
+# Function to configure git user information
+configure_git_user() {
+    local email name
+
+    echo
+    print_status "Configuring git user information..."
+    echo
+
+    # Ask for user email
+    while true; do
+        read -p "Enter your git email: " email
+        if [[ -n "$email" && "$email" =~ ^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$ ]]; then
+            break
+        else
+            print_error "Please enter a valid email address"
+        fi
+    done
+
+    # Ask for user name
+    while true; do
+        read -p "Enter your git name: " name
+        if [[ -n "$name" ]]; then
+            break
+        else
+            print_error "Please enter your name"
+        fi
+    done
+
+    # Configure git
+    print_status "Setting git configuration..."
+
+    if git config --global user.email "$email" && git config --global user.name "$name"; then
+        print_success "Git user configured successfully!"
+        print_status "Email: $email"
+        print_status "Name: $name"
+        return 0
+    else
+        print_error "Failed to configure git user information"
+        return 1
+    fi
+}
+
 run_configuration() {
     local flavor="$1"
     local flavor_dir="$HOME/.dotfiles/flavors/$flavor"
@@ -285,6 +327,11 @@ main() {
     # Confirm installation
     echo
     print_status "Ready to install dotfiles for: $target_flavor"
+
+    # Configure git user before running configuration
+    if ! configure_git_user; then
+        print_error "Git configuration failed. Continuing with dotfiles installation..."
+    fi
 
     run_configuration "$target_flavor"
 }
