@@ -334,6 +334,8 @@ main() {
     fi
 
     run_configuration "$target_flavor"
+
+    [[ -f "$HOME/.secrets" ]] && touch "$HOME/.secrets"
 }
 
 # Show help
