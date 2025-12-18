@@ -22,6 +22,7 @@ export EDITOR=vim
 export PATH="$PATH:$HOME/.local/bin"
 
 # Load dotfiles
+[[ -s "$HOME/.secrets" ]] && source "$HOME/.secrets"
 [[ -s "$HOME/.bash_exports" ]] && source "$HOME/.bash_exports"
 [[ -s "$HOME/.bash_aliases" ]] && source "$HOME/.bash_aliases"
 [[ -s "$HOME/.bash_functions" ]] && source "$HOME/.bash_functions"

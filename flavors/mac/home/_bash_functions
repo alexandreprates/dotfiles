@@ -69,3 +69,8 @@ pyclean() {
 disable_ipv6() {
 	networksetup -setv6off Wi-Fi
 }
+
+function bw_get_apikey() {
+    local bw_key=$(bw get item $1 | jq -r '.fields[]? | select(.name=="API_KEY") | .value')
+    echo $bw_key
+}
