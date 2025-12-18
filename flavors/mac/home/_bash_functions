@@ -1,7 +1,7 @@
 # Load conda hooks
 cd() {
   builtin cd $@
-  [ -f .conda_env ] && conda activate $(cat .conda_env) || conda deactivate
+  [ -f .conda_env ] && conda activate $(cat .conda_env)
   [ -f .venv ] && source .venv/bin/activate
 }
 
