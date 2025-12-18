@@ -8,6 +8,7 @@ cask "google-chrome"
 cask "keepingyouawake"
 cask "spotify"
 cask "visual-studio-code"
+brew "bitwarden-cli"
 
 # Development tools
 brew "arduino-cli"
