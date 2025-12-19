@@ -1,16 +1,16 @@
-# Load conda hooks
+# Autoload conda or venv when changing directories
 cd() {
   builtin cd $@
   [ -f .conda_env ] && conda activate $(cat .conda_env)
   [ -f .venv ] && source .venv/bin/activate
 }
 
-# Executa o comando em background no diretorio atual
+# Run command in background
 background() {
   $1 . > /dev/null 2>&1 &
 }
 
-# chown me all files in dir
+# change ownership of all files in current dir to current user
 reown() {
   GROUP=$(id -gn)
   find . -not -user $USER -exec sudo chown $USER:$GROUP -v {} \;
@@ -23,43 +23,6 @@ backup() {
   echo "Created new backup $BACKUP_NAME"
 }
 
-# create a tunnel
-mytunnel() {
-  if [ -z "$1" ] || ! [[ "$1" =~ ^[0-9]+$ ]]; then
-    echo "Invalid PORT argument!"
-    echo "Usage: mytunnel PORT [-v]"
-    return 1
-  fi
-
-  local_port=$1
-  verbose=""
-
-  shift
-
-  while getopts ":v" opt; do
-    case ${opt} in
-      v)
-        verbose="-v"
-        ;;
-      \?)
-        echo "Invalid option: -$OPTARG" 1>&2
-        echo "Usage: mytunnel PORT [-v]"
-        return 1
-        ;;
-    esac
-  done
-  shift $((OPTIND -1))
-
-  nc -z localhost $local_port
-  if [ $? -ne 0 ] ; then
-   echo "Fail to connect to port localhost:$local_port"
-   return 1
-  fi
-
-  echo "Redirecting localhost:$local_port to https://mytunnel.ddns.net"
-  ssh $verbose -N -o ServerAliveInterval=20 -R 8000:localhost:$local_port mytunnel.ddns.net
-}
-
 # clean all __pycache__ dirs (recursive)
 pyclean() {
   find . -type d -name __pycache__ -exec rm -rf {} \;
@@ -70,7 +33,8 @@ disable_ipv6() {
 	networksetup -setv6off Wi-Fi
 }
 
-function bw_export() {
+# helper to create and export a Bitwarden item field as env var
+bw_export() {
     local bw_id=$(bw list items --search $1 | jq -r '.[0].id')
     [[ -z "$bw_id" || "$bw_id" == "null" ]] && { echo "Item not found"; exit 1; }
     local bw_key=$(bw get item $bw_id | jq -r --arg field_name "$2" '.fields[]? | select(.name==$field_name) | .value')

@@ -1,3 +1,10 @@
+# Autoload conda or venv when changing directories
+cd() {
+  builtin cd $@
+  [ -f .conda_env ] && conda activate $(cat .conda_env)
+  [ -f .venv ] && source .venv/bin/activate
+}
+
 md5_rename() {
     if [ $# -ne 1 ]; then
         echo "Usage: md5_rename <path>"
@@ -28,10 +35,4 @@ download() {
 	FILENAME=$(echo $URL | rev | cut -d \/ -f 1 | rev | cut -d \? -f 1)
 
 	aria2c "$URL" -o "$FILENAME"
-}
-
-cd() {
-  builtin cd $@
-  #[ -f .conda_env ] && conda activate $(cat .conda_env) || conda deactivate
-  [ -f .cd_autorun ] && source .cd_autorun
 }
