@@ -70,7 +70,10 @@ disable_ipv6() {
 	networksetup -setv6off Wi-Fi
 }
 
-function bw_get_apikey() {
-    local bw_key=$(bw get item $1 | jq -r '.fields[]? | select(.name=="API_KEY") | .value')
-    echo $bw_key
+function bw_export() {
+    local bw_id=$(bw list items --search $1 | jq -r '.[0].id')
+    [[ -z "$bw_id" || "$bw_id" == "null" ]] && { echo "Item not found"; exit 1; }
+    local bw_key=$(bw get item $bw_id | jq -r --arg field_name "$2" '.fields[]? | select(.name==$field_name) | .value')
+    export $2=$bw_key
+    echo "$2 set"
 }
