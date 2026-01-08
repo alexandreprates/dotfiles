@@ -1,5 +1,9 @@
+alias py="python"
 alias tm="task-master"
+alias serena="uvx --from git+https://github.com/oraios/serena serena"
+
 alias timeout='gtimeout'
+
 alias dc="docker-compose"
 alias dcu="docker-compose up -d"
 alias dcd="docker-compose down"
