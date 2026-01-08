@@ -240,7 +240,7 @@ configure_git_user() {
 
     # Ask for user email
     while true; do
-        read -p "Enter your git email: " email
+        read -r -p "Enter your git email: " email </dev/tty
         if [[ -n "$email" && "$email" =~ ^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$ ]]; then
             break
         else
@@ -250,7 +250,7 @@ configure_git_user() {
 
     # Ask for user name
     while true; do
-        read -p "Enter your git name: " name
+        read -r -p "Enter your git name: " name </dev/tty
         if [[ -n "$name" ]]; then
             break
         else
