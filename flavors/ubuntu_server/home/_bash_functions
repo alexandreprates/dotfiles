@@ -36,3 +36,37 @@ download() {
 
 	aria2c "$URL" -o "$FILENAME"
 }
+
+bw2secrets() {
+    if [ $# -ne 1 ]; then
+        printf "Usage: bw2secrets <name>\n" >&2
+        return 1
+    fi
+
+    local name="$1"
+    local secrets_file="$HOME/.bash_secrets"
+
+    # Search for the export field in Bitwarden
+    local export_value=$(bw list items --search "$name" | jq -r '.[].fields[]? | select(.name=="export") | .value' 2>/dev/null)
+
+    if [ -z "$export_value" ]; then
+        printf "No 'export' field found for item: %s\n" "$name" >&2
+        return 1
+    fi
+
+    # Create secrets file if it doesn't exist
+    touch "$secrets_file"
+
+    # Extract variable name from export statement (assumes format: export VAR_NAME=...)
+    local var_name=$(printf "%s" "$export_value" | grep -o '^export [A-Z_][A-Z0-9_]*' | cut -d' ' -f2)
+
+    if [ -n "$var_name" ]; then
+        # Remove existing export for this variable if it exists (compatible with both GNU and BSD sed)
+        sed -i.bak "/^export $var_name=/d" "$secrets_file" 2>/dev/null && rm -f "$secrets_file.bak"
+    fi
+
+    # Add the new export to the file
+    printf "%s\n" "$export_value" >> "$secrets_file"
+
+    printf "Export added to %s:\n" "$secrets_file" >&2
+}

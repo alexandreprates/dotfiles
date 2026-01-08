@@ -91,19 +91,24 @@ fi
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
+# Export secrets.
+if [ -f ~/.bash_secrets ]; then
+    source ~/.bash_secrets
+fi
+
 # Export definitions.
 if [ -f ~/.bash_exports ]; then
-    . ~/.bash_exports
+    source ~/.bash_exports
 fi
 
 # Function definitions.
 if [ -f ~/.bash_functions ]; then
-    . ~/.bash_functions
+    source ~/.bash_functions
 fi
 
 # Alias definitions.
 if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
+    source ~/.bash_aliases
 fi
 
 # enable programmable completion features (you don't need to enable
@@ -116,3 +121,4 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+

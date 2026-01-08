@@ -26,6 +26,16 @@ create_link() {
     $PREFIX ln -s "$SOURCE" "$DESTINATION"
 }
 
+install_bw() {
+    echo "Installing Bitwarden CLI..." </dev/tty
+    curl -L "https://bitwarden.com/download/?app=cli&platform=linux" --output bw.zip
+    mkdir bw_temp
+    unzip bw.zip -d ./bw_temp/
+    mv ./bw_temp/bw ./.local/bin/bw
+    rm -rf bw.zip bw_temp
+    echo "Bitwarden CLI installed successfully." </dev/tty
+}
+
 # Check if dotfiles directory exists
 if [ ! -d "$DOTFILES_DIR" ]; then
     echo "Error: Dotfiles directory $DOTFILES_DIR not found!"
@@ -57,6 +67,14 @@ for SOURCE in $(find "$DOTFILES_DIR/flavors/$CURRENT_FLAVOR/home" -type f); do
 
     create_link "$PREFIX" "$SOURCE" "$DESTINATION"
 done
+touch "$HOME/.bash_secrets"
+
+sudo apt update
+sudo apt install -y $(cat "$DOTFILES_DIR/flavors/$CURRENT_FLAVOR/packages.txt")
+
+sudo npm install -g @openai/codex
+
+install_bw
 
 echo "Install Go2Dir..."
 curl https://raw.githubusercontent.com/alexandreprates/go2dir/master/install | bash
