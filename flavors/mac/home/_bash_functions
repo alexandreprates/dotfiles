@@ -2,7 +2,7 @@
 cd() {
   builtin cd $@
   [ -f .conda_env ] && conda activate $(cat .conda_env)
-  [ -f .venv ] && source .venv/bin/activate
+  [ -d .venv ] && source .venv/bin/activate
 }
 
 # Run command in background
@@ -41,3 +41,76 @@ bw_export() {
     export $2=$bw_key
     echo "$2 set"
 }
+
+# synchronize local directory with remote and watch for changes
+mirror() {
+    if [ $# -ne 3 ]; then
+        echo "Usage: mirror <source_dir> <remote_host> <remote_dir>"
+        echo "  source_dir:  Local directory to sync (e.g., ./project)"
+        echo "  remote_host: Remote host (e.g., user@hostname)"
+        echo "  remote_dir:  Remote directory path (e.g., /home/user/project)"
+        return 1
+    fi
+
+    local source_dir="$1"
+    local remote_host="$2"
+    local remote_dir="$3"
+
+    # Validate source directory exists
+    if [ ! -d "$source_dir" ]; then
+        echo "Error: Source directory '$source_dir' does not exist"
+        return 1
+    fi
+
+    # Check if fswatch is installed
+    if ! command -v fswatch &> /dev/null; then
+        echo "Error: fswatch is not installed. Please install it with: brew install fswatch"
+        return 1
+    fi
+
+    # Check if rsync is installed
+    if ! command -v rsync &> /dev/null; then
+        echo "Error: rsync is not installed. Please install it with: brew install rsync"
+        return 1
+    fi
+
+    echo "Starting mirror..."
+    echo "Source: $source_dir"
+    echo "Remote: $remote_host:$remote_dir"
+    echo ""
+
+    # Function to perform sync
+    sync_files() {
+        echo "[$(date '+%Y-%m-%d %H:%M:%S')] Syncing files..."
+        if rsync -avz --delete "$source_dir/" "$remote_host:$remote_dir/"; then
+            echo "[$(date '+%Y-%m-%d %H:%M:%S')] Sync completed successfully"
+        else
+            echo "[$(date '+%Y-%m-%d %H:%M:%S')] Sync failed"
+        fi
+        echo ""
+    }
+
+    # Initial sync
+    echo "Performing initial sync..."
+    sync_files
+
+    # Watch for changes and sync automatically
+    echo "Watching for changes in '$source_dir'..."
+    echo "Press Ctrl+C to stop watching"
+    echo ""
+
+    # Use fswatch to monitor changes
+    # -r: recursive, -e: exclude patterns, -l: latency (seconds)
+    fswatch -r -l 1 \
+        -e "\.git/" \
+        -e "\.DS_Store" \
+        -e "\.swp$" \
+        -e "\.tmp$" \
+        -e "__pycache__/" \
+        -e "\.pyc$" \
+        -e "node_modules/" \
+        "$source_dir" | while read file; do
+        sync_files
+    done
+}
+
