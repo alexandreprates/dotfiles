@@ -1,0 +1,1 @@
+zsh npm jq zip

@@ -1,0 +1,7 @@
+alias pykill="pkill python"
+alias docker-stall="docker stop \$(docker ps -q)"
+alias docker-clean="docker rm \$(docker ps -aq)"
+alias dcd="docker compose down"
+alias dcb="docker compose build"
+alias dcu="docker compose up"
+alias gp="git pull"
