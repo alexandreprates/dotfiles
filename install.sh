@@ -175,26 +175,29 @@ setup_repository() {
     return 0
 }
 
+normalize_name() {
+  local s="$1"
+  s="${s,,}"
+  printf '%s' "$s" |
+    LC_ALL=C sed -E 's/[^a-z0-9]+/_/g; s/^_+|_+$//g'
+}
+
 # Function to detect operating system
 detect_os() {
     local os_name
+    local distro_id=""
 
     if [[ "$OSTYPE" == "darwin"* ]]; then
         os_name="mac"
     elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
-        # Check if we're on a desktop environment or server
-        if command -v gnome-session >/dev/null 2>&1 || command -v cinnamon >/dev/null 2>&1; then
-            # Desktop environment detected, check which one
-            if command -v cinnamon >/dev/null 2>&1; then
-                os_name="cinnamon"
-            elif command -v i3 >/dev/null 2>&1 || [[ "$XDG_CURRENT_DESKTOP" == "i3" ]]; then
-                os_name="i3"
-            else
-                # Default to cinnamon for other desktop environments
-                os_name="cinnamon"
-            fi
-        else
-            # No desktop environment, assume server
+        if [[ -f /etc/os-release ]]; then
+            # shellcheck disable=SC1091
+            source /etc/os-release
+            distro_name="${NAME:-}"
+        fi
+        os_name=$(normalize_name "$distro_name")
+
+        if [[ "$os_name" == *"ubuntu"* ]] || dpkg -s ubuntu-desktop >/dev/null 2>&1; then
             os_name="ubuntu_server"
         fi
     else
