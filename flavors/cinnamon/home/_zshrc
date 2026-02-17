@@ -9,7 +9,8 @@ ZSH_THEME="lost"
 plugins=(
   git
   git-prompt
-  podman
+  docker
+  docker-compose
 )
 
 # User configuration
@@ -20,5 +21,3 @@ source $ZSH/oh-my-zsh.sh
 [[ -s "$HOME/.bash_aliases" ]] && source "$HOME/.bash_aliases"
 [[ -s "$HOME/.bash_functions" ]] && source "$HOME/.bash_functions"
 
-# Load go2dir
-[[ -s "$HOME/.go2dir/go2dir.sh" ]] && source "$HOME/.go2dir/go2dir.sh"
