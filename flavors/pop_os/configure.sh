@@ -72,6 +72,8 @@ touch "$HOME/.bash_secrets"
 sudo apt update
 sudo apt install -y $(cat "$DOTFILES_DIR/flavors/$CURRENT_FLAVOR/packages.txt")
 
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
 sudo npm install -g @openai/codex
 
 install_bw
