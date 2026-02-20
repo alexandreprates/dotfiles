@@ -1,1 +1,1 @@
-zsh npm jq zip
+zsh npm jq zip rsync inotify-tools

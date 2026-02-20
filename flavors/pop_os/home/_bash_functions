@@ -84,3 +84,92 @@ py() {
 
   command "$bin" "$@"
 }
+
+# synchronize local directory with remote and watch for changes
+mirror() {
+    if [ $# -ne 3 ]; then
+        echo "Usage: mirror <source_dir> <remote_host> <remote_dir>"
+        echo "  source_dir:  Local directory to sync (e.g., ./project)"
+        echo "  remote_host: Remote host (e.g., user@hostname)"
+        echo "  remote_dir:  Remote directory path (e.g., /home/user/project)"
+        return 1
+    fi
+
+    local source_dir="$1"
+    local remote_host="$2"
+    local remote_dir="$3"
+
+    # Validate source directory exists
+    if [ ! -d "$source_dir" ]; then
+        echo "Error: Source directory '$source_dir' does not exist"
+        return 1
+    fi
+
+    # Check if rsync is installed
+    if ! command -v rsync >/dev/null 2>&1; then
+        echo "Error: rsync is not installed. Please install it with: sudo apt install rsync"
+        return 1
+    fi
+
+    # Prefer Linux-native watcher; fallback to fswatch when available
+    local watcher
+    if command -v inotifywait >/dev/null 2>&1; then
+        watcher="inotifywait"
+    elif command -v fswatch >/dev/null 2>&1; then
+        watcher="fswatch"
+    else
+        echo "Error: no filesystem watcher found."
+        echo "Install one of:"
+        echo "  sudo apt install inotify-tools"
+        echo "  sudo apt install fswatch"
+        return 1
+    fi
+
+    echo "Starting mirror..."
+    echo "Source: $source_dir"
+    echo "Remote: $remote_host:$remote_dir"
+    echo ""
+
+    # Function to perform sync
+    sync_files() {
+        echo "[$(date '+%Y-%m-%d %H:%M:%S')] Syncing files..."
+        if rsync -avz --delete "$source_dir/" "$remote_host:$remote_dir/"; then
+            echo "[$(date '+%Y-%m-%d %H:%M:%S')] Sync completed successfully"
+        else
+            echo "[$(date '+%Y-%m-%d %H:%M:%S')] Sync failed"
+        fi
+        echo ""
+    }
+
+    # Initial sync
+    echo "Performing initial sync..."
+    sync_files
+
+    # Watch for changes and sync automatically
+    echo "Watching for changes in '$source_dir'..."
+    echo "Press Ctrl+C to stop watching"
+    echo ""
+
+    if [ "$watcher" = "inotifywait" ]; then
+        # Linux-native watcher (inotify-tools)
+        inotifywait -mrq \
+            --event modify,create,delete,move \
+            --exclude '(^|/)(\.git|node_modules|__pycache__)(/|$)|\.swp$|\.tmp$|\.pyc$|\.DS_Store$' \
+            "$source_dir" | while read -r _; do
+            sync_files
+        done
+    else
+        # Fallback watcher (fswatch)
+        fswatch -r -l 1 \
+            -e "\.git/" \
+            -e "\.DS_Store" \
+            -e "\.swp$" \
+            -e "\.tmp$" \
+            -e "__pycache__/" \
+            -e "\.pyc$" \
+            -e "node_modules/" \
+            "$source_dir" | while read -r _; do
+            sync_files
+        done
+    fi
+}
