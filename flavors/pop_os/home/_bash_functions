@@ -6,12 +6,31 @@ cd() {
 }
 
 md5_rename() {
-    if [ $# -ne 1 ]; then
-        echo "Usage: md5_rename <path>"
+    prefix=""
+    filter="*"
+    target_dir=""
+
+    while [[ $# -gt 0 ]]; do
+        case "$1" in
+            --prefix)
+                prefix="$2"
+                shift 2
+                ;;
+            --filter)
+                filter="$2"
+                shift 2
+                ;;
+            *)
+                target_dir="$1"
+                shift
+                ;;
+        esac
+    done
+
+    if [ -z "$target_dir" ]; then
+        echo "Usage: md5_rename [--prefix <prefix>] [--filter <pattern>] <path>"
         return 1
     fi
-
-    target_dir="$1"
 
     if [ ! -d "$target_dir" ]; then
         echo "Dir '$target_dir' not exists."
@@ -20,12 +39,12 @@ md5_rename() {
 
     cd "$target_dir" || return 1
 
-    for filename in *; do
+    for filename in $filter; do
         # Check for regular file
         if [ -f "$filename" ]; then
             filehash=$(md5sum "$filename" | awk '{ print $1 }')
             fileext="${filename##*.}"
-            mv -v "$filename" "${filehash}.${fileext}"
+            mv -v "$filename" "${prefix}${filehash}.${fileext}"
         fi
     done
 }
