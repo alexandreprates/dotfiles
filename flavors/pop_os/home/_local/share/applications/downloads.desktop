@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Downloads
+Comment=Abrir pasta Downloads
+Exec=xdg-open /home/alexandreprates/Downloads
+Icon=folder-download
+Terminal=false
+Type=Application
+Categories=Utility;

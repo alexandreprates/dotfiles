@@ -37,12 +37,9 @@ md5_rename() {
         return 1
     fi
 
-    cd "$target_dir" || return 1
-
-    for filename in $filter; do
-        # Check for regular file
+    for filename in $(find . -maxdepth 1 -type f -name "$filter" | sed 's|^./||'); do
         if [ -f "$filename" ]; then
-            filehash=$(md5sum "$filename" | awk '{ print $1 }')
+            filehash=$(md5sum -b "$filename" | awk '{ print $1 }')
             fileext="${filename##*.}"
             mv -v "$filename" "${prefix}${filehash}.${fileext}"
         fi
