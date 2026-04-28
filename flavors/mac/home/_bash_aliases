@@ -7,4 +7,8 @@ alias timeout='gtimeout'
 alias dc="docker-compose"
 alias dcu="docker-compose up -d"
 alias dcd="docker-compose down"
-alias dcl="docker-compose logs -f"
+alias dcl="docker-compose logs -f -m10"
+
+alias codex!="codex --dangerously-bypass-approvals-and-sandbox"
+alias claude!="claude --allow-dangerously-skip-permissions"
+
