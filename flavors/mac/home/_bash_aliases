@@ -12,3 +12,4 @@ alias dcl="docker-compose logs -f -m10"
 alias codex!="codex --dangerously-bypass-approvals-and-sandbox"
 alias claude!="claude --allow-dangerously-skip-permissions"
 
+alias wake-glados="wakeonlan 22:18:4d:06:36:4f"

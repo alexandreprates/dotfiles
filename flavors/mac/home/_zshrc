@@ -45,3 +45,16 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
+
+# >>> grok installer >>>
+export PATH="$HOME/.grok/bin:$PATH"
+fpath=(~/.grok/completions/zsh $fpath)
+autoload -Uz compinit && compinit -C
+# <<< grok installer <<<
+
+# >>> dotnet (shared SDK 10 + runtimes 8/10 side by side, for Serena's C# language server) >>>
+export DOTNET_ROOT="$HOME/.dotnet"
+export PATH="$HOME/.dotnet:$HOME/.dotnet/tools:$PATH"
+# <<< dotnet <<<
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"

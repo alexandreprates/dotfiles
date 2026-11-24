@@ -3,6 +3,7 @@ cd() {
   builtin cd $@
   [ -f .conda_env ] && conda activate $(cat .conda_env)
   [ -d .venv ] && source .venv/bin/activate
+  return 0
 }
 
 # Run command in background
